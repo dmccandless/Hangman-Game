@@ -46,3 +46,45 @@ document.onkeyup = function(event) {
   }
 };
 */
+
+var stateCapitals = ["montgomery", "tallahassee", "annapolis", "bismarck", "columbia"];
+
+var computerSelection = stateCapitals[Math.floor(Math.random() * stateCapitals.length)];
+
+var montgomery = {
+  "state": "Alabama",
+  "outline": xxx.png,
+  "song": xxx.mp4
+}
+
+var tallahassee = {
+  "state": "Florida",
+  "outline": xxx.png,
+  "song": xxx.mp4
+}
+
+var annapolis = {
+  "state": "Maryland",
+  "outline": xxx.png,
+  "song": xxx.mp4
+}
+
+var bismarck = {
+  "state": "North Dakota",
+  "outline": xxx.png,
+  "song": xxx.mp4
+}
+
+var columbia = {
+  "state": "South Carolina",
+  "outline": xxx.png,
+  "song": xxx.mp4
+}
+
+var winCounter = 0;
+
+var guessesRemaining = x; //how to initialize?
+
+var wrongLettersUsed = [];
+
+

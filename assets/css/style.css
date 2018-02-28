@@ -1,0 +1,42 @@
+body{
+	background-color: yellow;
+}
+
+header{
+	background-color: black;
+	color: white;
+	text-align: center;
+}
+
+footer{
+	background-color: black;
+	color: white;
+	text-align: center;
+	clear: both;
+}
+
+p{
+	padding: 10px;
+}
+
+h1{
+	font-size: 30px;
+}
+
+.gameDashboard{
+	padding: 10px;
+	border: 1px dotted blue;
+	width: 50%;
+	float: left;
+	margin: 5px;
+}
+
+.gameExtras{
+	padding: 10px;
+	border: 1px dotted blue;
+	width: 30%;
+	margin: 5px;
+	float:right;
+}
+
+
