@@ -23,7 +23,7 @@ h1{
 	font-size: 30px;
 }
 
-.gameDashboard{
+#gameDashboard{
 	padding: 10px;
 	border: 1px dotted blue;
 	width: 50%;
@@ -31,7 +31,7 @@ h1{
 	margin: 5px;
 }
 
-.gameExtras{
+#gameExtras{
 	padding: 10px;
 	border: 1px dotted blue;
 	width: 30%;

@@ -1,52 +1,7 @@
 //global variables, objects, calls
 
-
-/* some sample code from rock/paper/scissors
-var computerChoices = ["r", "p", "s"];
-
-var wins = 0;
-var losses = 0;
-
-
-document.onkeyup = function(event) {
-
-
-  var userGuess = event.key;
-
-
-  var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-
-  if ((userGuess === "r") || (userGuess === "p") || (userGuess === "s")) {
-
-    if ((userGuess === "r") && (computerGuess === "s")) {
-      wins++;
-    } else if ((userGuess === "r") && (computerGuess === "p")) {
-      losses++;
-    } else if ((userGuess === "s") && (computerGuess === "r")) {
-      losses++;
-    } else if ((userGuess === "s") && (computerGuess === "p")) {
-      wins++;
-    } else if ((userGuess === "p") && (computerGuess === "r")) {
-      wins++;
-    } else if ((userGuess === "p") && (computerGuess === "s")) {
-      losses++;
-    } else if (userGuess === computerGuess) {
-      ties++;
-    }
-
-
-    var html =
-      "<p>You chose: " + userGuess + "</p>" +
-      "<p>The computer chose: " + computerGuess + "</p>" +
-      "<p>wins: " + wins + "</p>" +
-      "<p>losses: " + losses + "</p>";
-
-    document.querySelector("#game").innerHTML = html;
-  }
-};
-*/
-
+//document onload ready (?) needed for making sure the page is loaded before processing begins?
+//Global Variables
 var stateCapitals = ["montgomery", "tallahassee", "annapolis", "bismarck", "columbia"];
 
 var computerSelection = stateCapitals[Math.floor(Math.random() * stateCapitals.length)];
@@ -83,8 +38,70 @@ var columbia = {
 
 var winCounter = 0;
 
-var guessesRemaining = x; //how to initialize?
+var guessesRemaining = x; //how to initialize? initialize with 15
 
 var wrongLettersUsed = [];
+
+var currentContest[];
+
+var gameStarted = false;
+
+
+//Functions
+
+//for starting a game
+document.onkeyup = function(event){
+  gameStarted = true;
+  initGame();
+
+}
+
+
+var initGame = function(){
+
+  guessesRemaining = 10;
+  currentContest = [];
+  
+
+  computerSelection = stateCapitals[Math.floor(Math.random() * stateCapitals.length)];
+  var lettersInSelection = computerSelection.split(" ");
+  var numDashes = lettersInSelection.length;
+
+  for(var i = 0; i < numDashes; numDashes++){
+    currentContest.push(" _ ");
+  }
+
+  var html =
+        "<p>Press any key to get started</p>" +
+        "<p>Wins: " + winCounter + "</p>" +
+        "<p>Current Word: " + currentContest + "</p>" +                                    
+        "<p>Number of guesses remaining: " + guessesRemaining + "</p>" +
+        "<p>Letters already used: " + wrongLettersUsed + "</p>"; 
+        
+
+    document.querySelector("#gameDashboard").innerHTML = html;
+
+
+}//end of initGame()
+
+
+
+
+
+
+
+//Main Process
+
+initGame();
+
+document.onkeyup = function(event){
+  var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+  alert(letterGuessed);
+  console.log(letterGuessed);
+}
+
+
+
+
 
 
