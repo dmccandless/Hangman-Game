@@ -11,7 +11,7 @@ var computerSelection = "";
 
 var winCounter = 0;
 
-var guessesRemaining = 10;
+var guessesRemaining = 15;
 
 var numDashes = 0;
 
@@ -67,7 +67,7 @@ var columbia = {
 }*/
 
 
-var initGame = function(){
+function initGame(){
 
   guessesRemaining = 10;
   currentContest = [];
@@ -75,8 +75,11 @@ var initGame = function(){
   
 
   computerSelection = stateCapitals[Math.floor(Math.random() * stateCapitals.length)];
-  var lettersInSelection = computerSelection.split(" ");
-  var numDashes = lettersInSelection.length;
+  console.log(computerSelection);
+  lettersInSelection = computerSelection.split("");
+  console.log(lettersInSelection);
+  numDashes = lettersInSelection.length;
+  console.log(numDashes);
 
   for(var i = 0; i < numDashes; i++){
     currentContest.push(" _ ");
@@ -97,31 +100,36 @@ var initGame = function(){
 
 //for checking letters
 
-var examineLetters = function(letter){
+function examineLetters(letter){
+  console.log(letter);
   var isLetterInWord = false;
   for (var i = 0; i < numDashes; i++){
-    if(computerSelection[i] === letter){
+    if(computerSelection[i] == letter){
+      console.log(computerSelection[i]);
       isLetterInWord = true;
+      console.log(isLetterInWord);
     }
   }
 
-  if(isLetterInWord) {
-    for(var i = 0; i < numDashes; i++){
-      if(computerSelection[i] === letter){
-        currentContest[i] === letter;
+    if(isLetterInWord) {
+      for(var i = 0; i < numDashes; i++){
+        if(computerSelection[i] == letter){
+          currentContest[i] = letter;
+          guessesRemaining--;
+        }
       }
     }
-  }
 
-  else{
-    wrongLettersUsed.push(letter);
-    guessesRemaining--;
-  }
+    else{
+      wrongLettersUsed.push(letter);
+      guessesRemaining--;
+    }
+  
 
   console.log(currentContest);
 } //end of examineLetters()
 
-var cycleComplete = function(){
+function cycleComplete(){
   console.log("Win count: " + winCounter + " | Guesses Left: " + guessesRemaining);
 
   var html =
@@ -134,7 +142,7 @@ var cycleComplete = function(){
 
   document.querySelector("#gameDashboard").innerHTML = html;
 
-  if(lettersInSelection.toString() === currentContest.toString()){
+  if(lettersInSelection.toString() == currentContest.toString()){
     winCounter++;
     alert("You won!");
 
@@ -151,7 +159,7 @@ var cycleComplete = function(){
     initGame();
   }// end of if you won
 
-  else if(guessesRemaining === 0){
+  else if(guessesRemaining == 0){
     alert("You lost!");
 
     initGame();
@@ -167,12 +175,12 @@ var cycleComplete = function(){
 
 //MAIN PROCESSING  ************************************************************************************
 
-document.onkeyup = function(event){
-  gameStarted = true;
+/*document.onkeyup = function(event){
+  //gameStarted = true;
   initGame();
-}
+}*/
 
-//initGame();
+initGame();
 
 
 document.onkeyup = function(event){
