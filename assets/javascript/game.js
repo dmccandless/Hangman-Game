@@ -1,7 +1,5 @@
 //global variables, objects, calls
 
-//document onload ready (?) needed for making sure the page is loaded before processing begins?
-
 
 //GLOBAL VARIABLES  ********************************************************************
 
@@ -11,7 +9,7 @@ var computerSelection = "";
 
 var winCounter = 0;
 
-var guessesRemaining = 15;
+var guessesRemaining = 9;
 
 var numDashes = 0;
 
@@ -69,7 +67,7 @@ var columbia = {
 
 function initGame(){
 
-  guessesRemaining = 10;
+  guessesRemaining = 9; //duplicative initializing?
   currentContest = [];
   wrongLettersUsed = [];
   
@@ -85,12 +83,14 @@ function initGame(){
     currentContest.push(" _ ");
   }
 
+  console.log(currentContest);
+
   var html =
         "<p>Press any key to get started</p>" +
         "<p>Wins: " + winCounter + "</p>" +
-        "<p>Current Word: " + currentContest + "</p>" +                                    
+        "<p>Current Word: " + currentContest.join(" ") + "</p>" +                                    
         "<p>Number of guesses remaining: " + guessesRemaining + "</p>" +
-        "<p>Letters already used: " + wrongLettersUsed + "</p>"; 
+        "<p>Incorrect letters already used: " + wrongLettersUsed + "</p>"; 
         
 
     document.querySelector("#gameDashboard").innerHTML = html;
@@ -98,7 +98,7 @@ function initGame(){
 
 }//end of initGame()
 
-//for checking letters
+
 
 function examineLetters(letter){
   console.log(letter);
@@ -115,7 +115,7 @@ function examineLetters(letter){
       for(var i = 0; i < numDashes; i++){
         if(computerSelection[i] == letter){
           currentContest[i] = letter;
-          guessesRemaining--;
+          //guessesRemaining--;
         }
       }
     }
@@ -127,7 +127,12 @@ function examineLetters(letter){
   
 
   console.log(currentContest);
+  //currentContest.join(" ");
+  console.log(currentContest.join(" "));
 } //end of examineLetters()
+
+
+
 
 function cycleComplete(){
   console.log("Win count: " + winCounter + " | Guesses Left: " + guessesRemaining);
@@ -135,26 +140,28 @@ function cycleComplete(){
   var html =
         "<p>Press any key to get started</p>" +
         "<p>Wins: " + winCounter + "</p>" +
-        "<p>Current Word: " + currentContest + "</p>" +                                    
+        "<p>Current Word: " + currentContest.join(" ") + "</p>" +                                    
         "<p>Number of guesses remaining: " + guessesRemaining + "</p>" +
-        "<p>Letters already used: " + wrongLettersUsed + "</p>"; 
+        "<p>Incorrect letters already used: " + wrongLettersUsed + "</p>"; 
         
 
   document.querySelector("#gameDashboard").innerHTML = html;
+  console.log(html);
 
   if(lettersInSelection.toString() == currentContest.toString()){
+    //currentContest[i] = letter; //to make certain last winning letter displays
     winCounter++;
     alert("You won!");
 
-    var html =
+    /*var html =
         "<p>Press any key to get started</p>" +
         "<p>Wins: " + winCounter + "</p>" +
-        "<p>Current Word: " + currentContest + "</p>" +                                    
+        "<p>Current Word: " + currentContest.join(" ") + "</p>" +                                    
         "<p>Number of guesses remaining: " + guessesRemaining + "</p>" +
-        "<p>Letters already used: " + wrongLettersUsed + "</p>"; 
+        "<p>Incorrect letters already used: " + wrongLettersUsed + "</p>"; 
         
 
-    document.querySelector("#gameDashboard").innerHTML = html;
+    document.querySelector("#gameDashboard").innerHTML = html;*/
 
     initGame();
   }// end of if you won
@@ -174,6 +181,9 @@ function cycleComplete(){
 
 
 //MAIN PROCESSING  ************************************************************************************
+
+
+//document onload ready (?) needed for making sure the page is loaded before processing begins?
 
 /*document.onkeyup = function(event){
   //gameStarted = true;
