@@ -1,4 +1,3 @@
-//global variables, objects, calls
 
 
 //GLOBAL VARIABLES  ********************************************************************
@@ -19,50 +18,38 @@ var wrongLettersUsed = [];
 
 var currentContest = [];
 
-//var gameStarted = false;
+
+//FUNCTIONS/OBJECTS ***********************************************************************
 
 //for gameExtras functionality, each stateCapitals[i] is an object with properties to display
 
-var montgomery = {
-  "state": "Alabama"
-  /*"outline": xxx.png,
-  "flag": xxx.png*/
+/*var montgomery = {
+  "state": "Alabama",
+  "flag": alabama.png
 }
 
 var tallahassee = {
-  "state": "Florida"
-  /*"outline": xxx.png,
-  "flag": xxx.png*/
+  "state": "Florida",
+  "flag": florida.png
 }
 
 var annapolis = {
-  "state": "Maryland"
-  /*"outline": xxx.png,
-  "flag": xxx.png*/
+  "state": "Maryland",
+  "flag": maryland.png
 }
 
 var bismarck = {
-  "state": "North Dakota"
-  /*"outline": xxx.png,
-  "flag": xxx.png*/
+  "state": "North Dakota",
+  "flag": northdakota.png
 }
 
 var columbia = {
-  "state": "South Carolina"
-  /*"outline": xxx.png,
-  "flag": xxx.png*/
-}
-
-
-
-
-//FUNCTIONS ***********************************************************************
-
-//for starting a game
-/*document.onkeyup = function(event){
-  gameStarted = true;
-  initGame();
+  "state": "South Carolina",
+  "flag": southCarolina.png
 }*/
+
+
+
 
 
 function initGame(){
@@ -111,31 +98,23 @@ function examineLetters(letter){
     }
   }
 
-    if(isLetterInWord) {
-      for(var i = 0; i < numDashes; i++){
-        if(computerSelection[i] == letter){
-          currentContest[i] = letter;
-          //guessesRemaining--;
-        }
+  if(isLetterInWord) {
+    for(var i = 0; i < numDashes; i++){
+      if(computerSelection[i] == letter){
+        currentContest[i] = letter;
       }
     }
+  }
 
-    else{
-      wrongLettersUsed.push(letter);
-      guessesRemaining--;
-    }
+  else{
+    wrongLettersUsed.push(letter);
+    guessesRemaining--;
+  }
   
 
   console.log(currentContest);
   //currentContest.join(" ");
   console.log(currentContest.join(" "));
-} //end of examineLetters()
-
-
-
-
-function cycleComplete(){
-  console.log("Win count: " + winCounter + " | Guesses Left: " + guessesRemaining);
 
   var html =
         "<p>Press any key to get started</p>" +
@@ -144,62 +123,45 @@ function cycleComplete(){
         "<p>Number of guesses remaining: " + guessesRemaining + "</p>" +
         "<p>Incorrect letters already used: " + wrongLettersUsed + "</p>"; 
         
-
   document.querySelector("#gameDashboard").innerHTML = html;
   console.log(html);
 
+  /*if(lettersInSelection.toString() == currentContest.toString() || guessesRemaining == 0){
+    wrapUpGame();
+  }*/
+
+} //end of examine letters
+
+function wrapUpGame(){
   if(lettersInSelection.toString() == currentContest.toString()){
-    //currentContest[i] = letter; //to make certain last winning letter displays
     winCounter++;
     alert("You won!");
-
-    /*var html =
-        "<p>Press any key to get started</p>" +
-        "<p>Wins: " + winCounter + "</p>" +
-        "<p>Current Word: " + currentContest.join(" ") + "</p>" +                                    
-        "<p>Number of guesses remaining: " + guessesRemaining + "</p>" +
-        "<p>Incorrect letters already used: " + wrongLettersUsed + "</p>"; 
-        
-
-    document.querySelector("#gameDashboard").innerHTML = html;*/
-
     initGame();
-  }// end of if you won
+  }
 
   else if(guessesRemaining == 0){
     alert("You lost!");
-
     initGame();
-  }// end of if you lost
+  }
 
-}//end of cycleComplete()
-
-
+}
 
 
-
-
-
-//MAIN PROCESSING  ************************************************************************************
-
+//CALLS  ************************************************************************************
 
 //document onload ready (?) needed for making sure the page is loaded before processing begins?
-
-/*document.onkeyup = function(event){
-  //gameStarted = true;
-  initGame();
-}*/
-
 initGame();
 
 
 document.onkeyup = function(event){
   var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
   alert("You pressed: " + letterGuessed);
-  console.log(letterGuessed);
   examineLetters(letterGuessed);
-  cycleComplete();
 }
+
+
+
+
 
 
 
