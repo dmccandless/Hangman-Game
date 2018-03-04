@@ -2,7 +2,13 @@
 
 //GLOBAL VARIABLES  ********************************************************************
 
-var stateCapitals = ["montgomery", "tallahassee", "annapolis", "bismarck", "columbia"];
+var stateCapitals = ["montgomery", "tallahassee", "annapolis", "bismarck", "columbia", "augusta",
+  "concord","montpelier", "boston", "providence", "hartford", "albany", "trenton", "harrisburg",
+  "dover", "richmond", "charleston", "raleigh", "austin", "batonrouge", "jackson", "lansing", "columbus",
+  "frankfort", "nashville", "madison", "springfield", "indianapolis", "stpaul", "desmoines", "jeffersoncity",
+  "littlerock", "pierre", "lincoln", "honolulu", "juneau", "olympia", "salem", "sacramento", "boise",
+  "carsoncity", "phoenix", "helena", "denver", "topeka", "oklahomacity", "santafe", "saltlakecity",
+  "cheyenne", "atlanta"];
 
 var computerSelection = "";
 
@@ -25,27 +31,32 @@ var currentContest = [];
 
 /*var montgomery = {
   "state": "Alabama",
-  "flag": alabama.png
+  "flag": "alabamaFlag.png",
+  "nameIs": "montgomery"
 }
 
 var tallahassee = {
   "state": "Florida",
-  "flag": florida.png
+  "flag": "floridaFlag.png",
+  "nameIs": "tallahassee"
 }
 
 var annapolis = {
   "state": "Maryland",
-  "flag": maryland.png
+  "flag": "marylandFlag.png",
+  "nameIs": "annapolis"
 }
 
 var bismarck = {
   "state": "North Dakota",
-  "flag": northdakota.png
+  "flag": "northdakotaFlag.png",
+  "nameIs": "bismarck"
 }
 
 var columbia = {
   "state": "South Carolina",
-  "flag": southCarolina.png
+  "flag": "southCarolinaFlag.png",
+  "nameIs": "columbia"
 }*/
 
 
@@ -85,6 +96,16 @@ function initGame(){
 
 }//end of initGame()
 
+//part of attempt to keep duplicates of wrong guesses from being recorded -- that is, record wrong guesses only once
+function inArray(needle, haystack){
+  var length = haystack.length;
+  for (var i = 0; i < length; i++){
+    if(haystack[i] == needle){
+      return true;
+    }
+  } 
+}
+  
 
 
 function examineLetters(letter){
@@ -107,8 +128,10 @@ function examineLetters(letter){
   }
 
   else{
-    wrongLettersUsed.push(letter);
-    guessesRemaining--;
+    if(!(inArray(letter, wrongLettersUsed) == true)){
+      wrongLettersUsed.push(letter);
+      guessesRemaining--;
+    }
   }
   
 
@@ -126,16 +149,16 @@ function examineLetters(letter){
   document.querySelector("#gameDashboard").innerHTML = html;
   console.log(html);
 
-  /*if(lettersInSelection.toString() == currentContest.toString() || guessesRemaining == 0){
-    wrapUpGame();
-  }*/
+  if(lettersInSelection.toString() == currentContest.toString() || guessesRemaining == 0){
+    setTimeout(wrapUpGame, 2000);
+  }
 
 } //end of examine letters
 
 function wrapUpGame(){
   if(lettersInSelection.toString() == currentContest.toString()){
     winCounter++;
-    alert("You won!");
+    alert("You won!")
     initGame();
   }
 
@@ -145,6 +168,8 @@ function wrapUpGame(){
   }
 
 }
+
+
 
 
 //CALLS  ************************************************************************************
