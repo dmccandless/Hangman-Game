@@ -2,13 +2,13 @@
 
 //GLOBAL VARIABLES  ********************************************************************
 
-var stateCapitals = ["montgomery", "tallahassee", "annapolis", "bismarck", "columbia", "augusta",
+var stateCapitals = ["montgomery", "tallahassee", "annapolis", "bismarck", "columbia"];/* "augusta",
   "concord","montpelier", "boston", "providence", "hartford", "albany", "trenton", "harrisburg",
   "dover", "richmond", "charleston", "raleigh", "austin", "batonrouge", "jackson", "lansing", "columbus",
   "frankfort", "nashville", "madison", "springfield", "indianapolis", "stpaul", "desmoines", "jeffersoncity",
   "littlerock", "pierre", "lincoln", "honolulu", "juneau", "olympia", "salem", "sacramento", "boise",
   "carsoncity", "phoenix", "helena", "denver", "topeka", "oklahomacity", "santafe", "saltlakecity",
-  "cheyenne", "atlanta"];
+  "cheyenne", "atlanta"];*/
 
 var computerSelection = "";
 
@@ -24,40 +24,44 @@ var wrongLettersUsed = [];
 
 var currentContest = [];
 
+var html1 = "";
+
+var flagImage;
+
 
 //FUNCTIONS/OBJECTS ***********************************************************************
 
 //for gameExtras functionality, each stateCapitals[i] is an object with properties to display
 
-/*var montgomery = {
+var montgomery = {
   "state": "Alabama",
-  "flag": "alabamaFlag.png",
-  "nameIs": "montgomery"
-}
+  "flag": "alabamaFlag",
+  "nameIs": "Montgomery"
+};
 
 var tallahassee = {
   "state": "Florida",
-  "flag": "floridaFlag.png",
-  "nameIs": "tallahassee"
-}
+  "flag": "floridaFlag",
+  "nameIs": "Tallahassee"
+};
 
 var annapolis = {
   "state": "Maryland",
-  "flag": "marylandFlag.png",
-  "nameIs": "annapolis"
-}
+  "flag": "marylandFlag",
+  "nameIs": "Annapolis"
+};
 
 var bismarck = {
   "state": "North Dakota",
-  "flag": "northdakotaFlag.png",
-  "nameIs": "bismarck"
-}
+  "flag": "northdakotaFlag",
+  "nameIs": "Bismarck"
+};
 
 var columbia = {
   "state": "South Carolina",
-  "flag": "southCarolinaFlag.png",
-  "nameIs": "columbia"
-}*/
+  "flag": "southCarolinaFlag",
+  "nameIs": "Columbia"
+};
 
 
 
@@ -68,7 +72,13 @@ function initGame(){
   guessesRemaining = 9; //duplicative initializing?
   currentContest = [];
   wrongLettersUsed = [];
-  
+  html1 = "";
+  document.querySelector("#cityInfo").innerHTML = html1;
+
+  flagImage = document.getElementById("flagPlaceholder");
+  flagImage.setAttribute("src", "assets/images/flag.png");
+
+
 
   computerSelection = stateCapitals[Math.floor(Math.random() * stateCapitals.length)];
   console.log(computerSelection);
@@ -92,6 +102,9 @@ function initGame(){
         
 
     document.querySelector("#gameDashboard").innerHTML = html;
+
+  flagImage = document.getElementById("flagPlaceholder");
+  flagImage.setAttribute("src", "assets/images/" + eval(computerSelection).flag + ".png");
 
 
 }//end of initGame()
@@ -150,7 +163,10 @@ function examineLetters(letter){
   console.log(html);
 
   if(lettersInSelection.toString() == currentContest.toString() || guessesRemaining == 0){
+    html1 = "This city is the capital of " + eval(computerSelection).state + " and its name is " + eval(computerSelection).nameIs + ".";
+    document.querySelector("#cityInfo").innerHTML = html1;
     setTimeout(wrapUpGame, 2000);
+
   }
 
 } //end of examine letters
