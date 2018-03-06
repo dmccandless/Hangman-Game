@@ -1,5 +1,5 @@
 # Hangman-Game
-Simple Hangman Game
+Simple Hangman Game:
 -This app takes the traditional children's word game and adapts it into a quiz about the state capitals of the US states.
 -The player is presented onscreen with a row of blanks representing the letters of a state capital.
 -In an aside, the player is presented with an image of the flag of the state for which the city is the capital.
