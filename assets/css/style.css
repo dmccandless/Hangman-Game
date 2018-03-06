@@ -25,7 +25,7 @@ h1{
 
 #gameDashboard{
 	padding: 10px;
-	border: 1px dotted blue;
+	border: 2px dotted blue;
 	width: 50%;
 	float: left;
 	margin: 5px;
@@ -33,8 +33,8 @@ h1{
 
 #gameExtras{
 	padding: 10px;
-	border: 1px dotted blue;
-	width: 30%;
+	border: 2px dotted blue;
+	width: 35%;
 	margin: 5px;
 	float:right;
 }

@@ -1,4 +1,4 @@
-
+window.onload = function(){
 
 //GLOBAL VARIABLES  ********************************************************************
 
@@ -155,7 +155,7 @@ var batonrouge = {
 
 var jackson = {
   "state": "Mississippi",
-  "flag": "mississippsFlag",
+  "flag": "mississippiFlag",
   "nameIs": "Jackson"
 };
 
@@ -333,11 +333,19 @@ var indianapolis = {
   "nameIs": "Indianapolis"
 };
 
+var washingtondc = {
+  "state": "District of Columbia",
+  "flag": "washingtondcFlag",
+  "nameIs": "Washington, DC"
+}
 
+//setting up the game
 
 function initGame(){
 
-  guessesRemaining = 9; //duplicative initializing?
+  //reset of initial variables if starting a new game after a previous one
+
+  guessesRemaining = 9;
   currentContest = [];
   wrongLettersUsed = [];
   html1 = "";
@@ -346,7 +354,7 @@ function initGame(){
   flagImage = document.getElementById("flagPlaceholder");
   flagImage.setAttribute("src", "assets/images/flag.png");
 
-
+//selection of different state capital
 
   computerSelection = stateCapitals[Math.floor(Math.random() * stateCapitals.length)];
   console.log(computerSelection);
@@ -355,11 +363,15 @@ function initGame(){
   numDashes = lettersInSelection.length;
   console.log(numDashes);
 
+  //setting up the row of dashes
+
   for(var i = 0; i < numDashes; i++){
     currentContest.push(" _ ");
   }
 
   console.log(currentContest);
+
+  //Print to the DOM/HTML
 
   var html =
         "<p>Press any key to get started</p>" +
@@ -377,39 +389,44 @@ function initGame(){
 
 }//end of initGame()
 
-//keep duplicates of wrong guesses from being recorded -- that is, record wrong guesses only once
+//helper function for use in examineLetters() to keep wrong letters recorded only once
 function inArray(needle, haystack){
   var length = haystack.length;
   for (var i = 0; i < length; i++){
-    if(haystack[i] == needle){
+    if(haystack[i] === needle){
       return true;
     }
   } 
 }
   
-
+//examine letter input by user to determine if said letter is in capital name
 
 function examineLetters(letter){
   console.log(letter);
   var isLetterInWord = false;
-  for (var i = 0; i < numDashes; i++){
-    if(computerSelection[i] == letter){
+  for (var i = 0; i < numDashes; i++){      //Is letter in the word?
+    if(computerSelection[i] === letter){
       console.log(computerSelection[i]);
       isLetterInWord = true;
       console.log(isLetterInWord);
     }
   }
 
+//If letter is in word, put it in row of dashes
   if(isLetterInWord) {
     for(var i = 0; i < numDashes; i++){
-      if(computerSelection[i] == letter){
+      if(computerSelection[i] === letter){
         currentContest[i] = letter;
       }
     }
   }
 
+
+//If letter is not in word, don't put it in row of dashes
+//But do put it in area for wrong letters guessed
+//But don't put it in area for wrong letters guessed if it's already there
   else{
-    if(!(inArray(letter, wrongLettersUsed) == true)){
+    if(!(inArray(letter, wrongLettersUsed) === true)){
       wrongLettersUsed.push(letter);
       guessesRemaining--;
     }
@@ -417,8 +434,9 @@ function examineLetters(letter){
   
 
   console.log(currentContest);
-  //currentContest.join(" ");
   console.log(currentContest.join(" "));
+
+  //Print to the DOM/screen
 
   var html =
         "<p>Press any key to get started</p>" +
@@ -430,26 +448,34 @@ function examineLetters(letter){
   document.querySelector("#gameDashboard").innerHTML = html;
   console.log(html);
 
-  if(lettersInSelection.toString() == currentContest.toString()){
+  //Determine if game has ended: if it has, call wrapUpGame()
+
+  if(lettersInSelection.toString() === currentContest.toString()){
+    //If player has won
     html1 = "This city is the capital of " + eval(computerSelection).state + 
     	" and its name is " + eval(computerSelection).nameIs + ".";
     document.querySelector("#cityInfo").innerHTML = html1;
     setTimeout(wrapUpGame, 2000);
-  } else if(guessesRemaining == 0){
+    //If player has lost
+  } else if(guessesRemaining === 0){
 		setTimeout(wrapUpGame, 2000);
   }
 
 
-} //end of examine letters
+}
 
+
+// Notify player if he/she has won or lost and start a new game
 function wrapUpGame(){
-  if(lettersInSelection.toString() == currentContest.toString()){
+  //If player has won
+  if(lettersInSelection.toString() === currentContest.toString()){
     winCounter++;
     alert("You won!")
     initGame();
   }
 
-  else if(guessesRemaining == 0){
+  //If player has lost
+  else if(guessesRemaining === 0){
     alert("You lost!");
     initGame();
   }
@@ -460,16 +486,17 @@ function wrapUpGame(){
 
 
 //CALLS  ************************************************************************************
-
-//document onload ready (?) needed for making sure the page is loaded before processing begins?
+  //Start a game
 initGame();
 
-
+  //Event listener for receiving key input
 document.onkeyup = function(event){
   var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
   alert("You pressed: " + letterGuessed);
   examineLetters(letterGuessed);
 }
+
+};
 
 
 
